@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIALEKTOS – X Post</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral:      #D4A574;
+    --cream:      #F5F0EB;
+    --brown:      #3D3228;
+    --brown-mid:  #6B5748;
+    --brown-soft: #9C8070;
+    --radius:     12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #E8E0D5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 600px;
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 52px 50px 44px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    animation: rise 0.7s ease both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Subtle warm texture overlay */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(212,165,116,0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 10% 90%, rgba(212,165,116,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    border-radius: var(--radius);
+  }
+
+  /* Coral left accent bar */
+  .accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--coral);
+    border-radius: var(--radius) 0 0 var(--radius);
+  }
+
+  /* Header row */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 36px;
+    animation: rise 0.5s ease 0.15s both;
+  }
+
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--brown);
+    letter-spacing: 0.08em;
+  }
+
+  .brand span {
+    color: var(--coral);
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--coral);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--coral);
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  /* Opener */
+  .opener {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--brown);
+    font-weight: 700;
+    margin-bottom: 28px;
+    animation: rise 0.5s ease 0.25s both;
+  }
+
+  /* Divider */
+  .divider {
+    width: 36px;
+    height: 2px;
+    background: var(--coral);
+    border-radius: 2px;
+    margin-bottom: 28px;
+    animation: grow 0.5s ease 0.35s both;
+  }
+  @keyframes grow {
+    from { width: 0; opacity: 0; }
+    to   { width: 36px; opacity: 1; }
+  }
+
+  /* Body text */
+  .body-section {
+    margin-bottom: 20px;
+    animation: rise 0.5s ease var(--d, 0.4s) both;
+  }
+
+  .body-text {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.78;
+    color: var(--brown-mid);
+  }
+
+  .muted { color: var(--brown-soft); }
+
+  /* Brand moment */
+  .brand-moment {
+    margin: 28px 0 24px;
+    animation: rise 0.5s ease 0.6s both;
+  }
+  .brand-moment-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 6px;
+  }
+  .brand-moment-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--brown);
+    letter-spacing: 0.06em;
+  }
+  .brand-moment-desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--brown-soft);
+    margin-top: 4px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Quote block */
+  .quote-block {
+    background: rgba(212, 165, 116, 0.10);
+    border-radius: var(--radius);
+    border-left: 3px solid var(--coral);
+    padding: 18px 20px;
+    margin: 4px 0 24px;
+    animation: rise 0.5s ease 0.72s both;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--brown);
+    font-weight: 700;
+  }
+
+  /* Closing */
+  .closing-row {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(61, 50, 40, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: rise 0.5s ease 0.9s both;
+  }
+
+  .closing-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--brown-soft);
+    line-height: 1.6;
+  }
+
+  .closing-text strong {
+    color: var(--brown);
+    font-weight: 500;
+  }
+
+  .launch-pill {
+    background: var(--coral);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 9px 20px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* Contact footer */
+  .contact-footer {
+    margin-top: 16px;
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--brown-soft);
+    letter-spacing: 0.04em;
+    animation: rise 0.5s ease 1.0s both;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="accent-bar"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">DIALEKT<span>OS</span></div>
+    <div class="tag">Origin Story</div>
+  </div>
+
+  <!-- Opener -->
+  <p class="opener">I've lived in another country,<br>and I know the feeling.</p>
+
+  <div class="divider"></div>
+
+  <!-- Body -->
+  <div class="body-section" style="--d:0.4s">
+    <p class="body-text">
+      Spending months on language apps… courses… streaks…
+      <span class="muted">only to freeze when you actually need to speak.</span>
+    </p>
+  </div>
+
+  <div class="body-section" style="--d:0.5s">
+    <p class="body-text">
+      That cycle gets boring fast.
+      <span class="muted">Most people quit.</span>
+    </p>
+  </div>
+
+  <!-- Brand moment -->
+  <div class="brand-moment">
+    <div class="brand-moment-label">That's where</div>
+    <div class="brand-moment-name">DIALEKTOS</div>
+    <div class="brand-moment-desc">started — not from a big idea. From frustration.</div>
+  </div>
+
+  <!-- Quote block -->
+  <div class="quote-block">
+    <p class="quote-text">
+      "What if learning a language didn't feel like studying?<br>
+      What if it felt like scrolling — like real life?"
+    </p>
+  </div>
+
+  <div class="body-section" style="--d:0.8s">
+    <p class="body-text">
+      So I started building it.
+      <span class="muted">No perfect plan. Just an idea and a lot of problems to solve.</span>
+    </p>
+  </div>
+
+  <!-- Closing row -->
+  <div class="closing-row">
+    <div class="closing-text">
+      And now we're<br><strong>close to launch.</strong>
+    </div>
+    <div class="launch-pill">Coming Soon</div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-footer">contact@dialektos.one</div>
+</div>
+</body>
+</html>
