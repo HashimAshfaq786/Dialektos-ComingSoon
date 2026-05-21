@@ -1,301 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DIALEKTOS – X Post</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --coral:      #D4A574;
-    --cream:      #F5F0EB;
-    --brown:      #3D3228;
-    --brown-mid:  #6B5748;
-    --brown-soft: #9C8070;
-    --radius:     12px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <title>DIALEKTOS — Learn languages while scrolling</title>
 
-  body {
-    background: #E8E0D5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 32px;
-    font-family: 'DM Sans', sans-serif;
-  }
+  <meta
+    name="description"
+    content="Transform your daily scrolling into language fluency through contextual micro-learning."
+  />
 
-  .card {
-    width: 600px;
-    background: var(--cream);
-    border-radius: var(--radius);
-    padding: 52px 50px 44px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    animation: rise 0.7s ease both;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
 
-  /* Subtle warm texture overlay */
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(212,165,116,0.13) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 10% 90%, rgba(212,165,116,0.08) 0%, transparent 60%);
-    pointer-events: none;
-    border-radius: var(--radius);
-  }
+  <style>
 
-  /* Coral left accent bar */
-  .accent-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--coral);
-    border-radius: var(--radius) 0 0 var(--radius);
-  }
+    :root {
+      --primary: #D4A574;
+      --background: #F5EBE0;
+      --text: #3D3228;
+      --white: #ffffff;
+      --radius: 12px;
+      --shadow: 0 10px 30px rgba(61, 50, 40, 0.08);
+      --max-width: 1200px;
+    }
 
-  /* Header row */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 36px;
-    animation: rise 0.5s ease 0.15s both;
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .brand {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: var(--brown);
-    letter-spacing: 0.08em;
-  }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .brand span {
-    color: var(--coral);
-  }
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-  .tag {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--coral);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    border: 1.5px solid var(--coral);
-    padding: 5px 12px;
-    border-radius: 100px;
-  }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-  /* Opener */
-  .opener {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--brown);
-    font-weight: 700;
-    margin-bottom: 28px;
-    animation: rise 0.5s ease 0.25s both;
-  }
+    .container {
+      width: 90%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
 
-  /* Divider */
-  .divider {
-    width: 36px;
-    height: 2px;
-    background: var(--coral);
-    border-radius: 2px;
-    margin-bottom: 28px;
-    animation: grow 0.5s ease 0.35s both;
-  }
-  @keyframes grow {
-    from { width: 0; opacity: 0; }
-    to   { width: 36px; opacity: 1; }
-  }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(245, 235, 224, 0.85);
+      border-bottom: 1px solid rgba(61, 50, 40, 0.08);
+    }
 
-  /* Body text */
-  .body-section {
-    margin-bottom: 20px;
-    animation: rise 0.5s ease var(--d, 0.4s) both;
-  }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+    }
 
-  .body-text {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.78;
-    color: var(--brown-mid);
-  }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
 
-  .muted { color: var(--brown-soft); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
 
-  /* Brand moment */
-  .brand-moment {
-    margin: 28px 0 24px;
-    animation: rise 0.5s ease 0.6s both;
-  }
-  .brand-moment-label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--coral);
-    margin-bottom: 6px;
-  }
-  .brand-moment-name {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 32px;
-    color: var(--brown);
-    letter-spacing: 0.06em;
-  }
-  .brand-moment-desc {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--brown-soft);
-    margin-top: 4px;
-    letter-spacing: 0.03em;
-  }
+    .nav-links a {
+      opacity: 0.8;
+      transition: 0.3s ease;
+    }
 
-  /* Quote block */
-  .quote-block {
-    background: rgba(212, 165, 116, 0.10);
-    border-radius: var(--radius);
-    border-left: 3px solid var(--coral);
-    padding: 18px 20px;
-    margin: 4px 0 24px;
-    animation: rise 0.5s ease 0.72s both;
-  }
+    .nav-links a:hover {
+      opacity: 1;
+    }
 
-  .quote-text {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 15.5px;
-    line-height: 1.65;
-    color: var(--brown);
-    font-weight: 700;
-  }
+    .hero {
+      padding: 120px 0 100px;
+    }
 
-  /* Closing */
-  .closing-row {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(61, 50, 40, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    animation: rise 0.5s ease 0.9s both;
-  }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem;
+      align-items: center;
+    }
 
-  .closing-text {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--brown-soft);
-    line-height: 1.6;
-  }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(212, 165, 116, 0.18);
+      padding: 10px 18px;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
 
-  .closing-text strong {
-    color: var(--brown);
-    font-weight: 500;
-  }
+    h1 {
+      font-size: 4.8rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin-bottom: 1.5rem;
+    }
 
-  .launch-pill {
-    background: var(--coral);
-    color: var(--cream);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 9px 20px;
-    border-radius: 100px;
-    white-space: nowrap;
-  }
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.85;
+      max-width: 620px;
+      margin-bottom: 2rem;
+    }
 
-  /* Contact footer */
-  .contact-footer {
-    margin-top: 16px;
-    font-size: 11.5px;
-    font-weight: 400;
-    color: var(--brown-soft);
-    letter-spacing: 0.04em;
-    animation: rise 0.5s ease 1.0s both;
-  }
-</style>
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(61, 50, 40, 0.15);
+      background: rgba(255,255,255,0.4);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.7);
+    }
+
+    .phone {
+      background: white;
+      border-radius: 36px;
+      padding: 20px;
+      border: 8px solid #1f1f1f;
+      box-shadow: 0 25px 60px rgba(61, 50, 40, 0.15);
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .screen {
+      border-radius: 24px;
+      overflow: hidden;
+      background: #faf7f2;
+    }
+
+    .app-header {
+      padding: 18px;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-weight: 700;
+    }
+
+    .lesson {
+      padding: 22px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .lesson small {
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .lesson h3 {
+      margin: 10px 0 6px;
+      font-size: 1.3rem;
+    }
+
+    .lesson p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .section-title p {
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.8;
+      font-size: 1.1rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.6);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card-number {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+    }
+
+    .card h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      opacity: 0.8;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.55);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .feature h3 {
+      margin-bottom: 0.6rem;
+    }
+
+    .cta {
+      text-align: center;
+      background: rgba(255,255,255,0.45);
+      border-radius: 32px;
+      padding: 5rem 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .cta p {
+      margin-bottom: 2rem;
+      opacity: 0.8;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      padding: 50px 0;
+      text-align: center;
+      opacity: 0.7;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 980px) {
+
+      h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero-grid,
+      .cards,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        gap: 4rem;
+      }
+
+      .phone {
+        max-width: 320px;
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+      }
+
+      .section-title h2,
+      .cta h2 {
+        font-size: 2.2rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+  </style>
 </head>
+
 <body>
-<div class="card">
-  <div class="accent-bar"></div>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="brand">DIALEKT<span>OS</span></div>
-    <div class="tag">Origin Story</div>
-  </div>
+  <nav>
+    <div class="container nav-inner">
 
-  <!-- Opener -->
-  <p class="opener">I've lived in another country,<br>and I know the feeling.</p>
+      <div class="logo">
+        DIALEKTOS
+      </div>
 
-  <div class="divider"></div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#mission">Mission</a>
+        <a href="#contact">Contact</a>
+      </div>
 
-  <!-- Body -->
-  <div class="body-section" style="--d:0.4s">
-    <p class="body-text">
-      Spending months on language apps… courses… streaks…
-      <span class="muted">only to freeze when you actually need to speak.</span>
-    </p>
-  </div>
-
-  <div class="body-section" style="--d:0.5s">
-    <p class="body-text">
-      That cycle gets boring fast.
-      <span class="muted">Most people quit.</span>
-    </p>
-  </div>
-
-  <!-- Brand moment -->
-  <div class="brand-moment">
-    <div class="brand-moment-label">That's where</div>
-    <div class="brand-moment-name">DIALEKTOS</div>
-    <div class="brand-moment-desc">started — not from a big idea. From frustration.</div>
-  </div>
-
-  <!-- Quote block -->
-  <div class="quote-block">
-    <p class="quote-text">
-      "What if learning a language didn't feel like studying?<br>
-      What if it felt like scrolling — like real life?"
-    </p>
-  </div>
-
-  <div class="body-section" style="--d:0.8s">
-    <p class="body-text">
-      So I started building it.
-      <span class="muted">No perfect plan. Just an idea and a lot of problems to solve.</span>
-    </p>
-  </div>
-
-  <!-- Closing row -->
-  <div class="closing-row">
-    <div class="closing-text">
-      And now we're<br><strong>close to launch.</strong>
     </div>
-    <div class="launch-pill">Coming Soon</div>
-  </div>
+  </nav>
 
-  <!-- Contact -->
-  <div class="contact-footer">contact@dialektos.one</div>
-</div>
+  <section class="hero">
+
+    <div class="container hero-grid">
+
+      <div>
+
+        <div class="eyebrow">
+          Language learning for modern habits
+        </div>
+
+        <h1>
+          Learn languages while scrolling.
+        </h1>
+
+        <p>
+          DIALEKTOS transforms your daily social media habit into
+          effortless language fluency through contextual,
+          bite-sized micro-learning experiences.
+        </p>
+
+        <div class="button-group">
+
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@dialektos.one"
+            target="_blank"
+            class="btn btn-primary"
+          >
+            contact@dialektos.one
+          </a>
+
+          <a href="#features" class="btn btn-secondary">
+            Explore Features
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="phone">
+
+        <div class="screen">
+
+          <div class="app-header">
+            DIALEKTOS
+          </div>
+
+          <div class="lesson">
+            <small>SPANISH</small>
+            <h3>¿Qué tal?</h3>
+            <p>
+              A casual way to ask “How’s it going?”
+            </p>
+          </div>
+
+          <div class="lesson">
+            <small>FRENCH</small>
+            <h3>Ça marche</h3>
+            <p>
+              Used naturally like “that works.”
+            </p>
+          </div>
+
+          <div class="lesson">
+            <small>JAPANESE</small>
+            <h3>いただきます</h3>
+            <p>
+              Said before eating to express gratitude.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>
+          Your screen time can become study time.
+        </h2>
+
+        <p>
+          Most language apps require dedicated time and motivation.
+          DIALEKTOS fits naturally into moments you already spend online.
+        </p>
+
+      </div>
+
+      <div class="cards">
+
+        <div class="card">
+
+          <div class="card-number">1</div>
+
+          <h3>Scroll Naturally</h3>
+
+          <p>
+            Learn inside familiar social-style experiences without changing your habits.
+          </p>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-number">2</div>
+
+          <h3>Learn Contextually</h3>
+
+          <p>
+            Understand vocabulary and expressions through real-world context.
+          </p>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-number">3</div>
+
+          <h3>Improve Consistently</h3>
+
+          <p>
+            Build fluency over time through passive repetition and daily exposure.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="features">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>
+          Built for modern learners.
+        </h2>
+
+        <p>
+          A warm, intelligent learning experience designed around
+          how people actually consume content today.
+        </p>
+
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature">
+          <h3>Contextual micro-learning</h3>
+          <p>
+            Learn naturally through realistic examples and social-style interactions.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Bite-sized daily exposure</h3>
+          <p>
+            Small lessons designed to fit effortlessly into your routine.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Vocabulary through real content</h3>
+          <p>
+            Discover language as it’s genuinely spoken and written online.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Passive repetition</h3>
+          <p>
+            Reinforce memory through continuous exposure during your normal scrolling.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Multi-language support</h3>
+          <p>
+            Expand into multiple languages from beginner to advanced levels.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Inclusive by design</h3>
+          <p>
+            Accessible, encouraging, and welcoming for every learner.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="mission">
+
+    <div class="container">
+
+      <div class="cta">
+
+        <h2>
+          Language learning that feels human.
+        </h2>
+
+        <p>
+          DIALEKTOS believes fluency grows through consistency,
+          curiosity, and context — not pressure.
+        </p>
+
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@dialektos.one"
+          target="_blank"
+          class="btn btn-primary"
+        >
+          contact@dialektos.one
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer id="contact">
+
+    <div class="container">
+      © 2026 DIALEKTOS — contact@dialektos.one
+    </div>
+
+  </footer>
+
 </body>
 </html>
