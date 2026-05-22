@@ -1,339 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>DIALEKTOS — Coming Soon</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --primary: #D4A574;
-      --background: #F5EBE0;
-      --text: #3D3228;
-      --white: #FFFDFB;
-      --border: rgba(61, 50, 40, 0.08);
 
-      --radius: 12px;
-      --radius-full: 999px;
-
-      --shadow: 0 10px 40px rgba(61, 50, 40, 0.08);
-      --transition: all 0.4s ease;
+    :root{
+      --bg:#F5EBE0;
+      --text:#3D3228;
+      --primary:#D4A574;
+      --card:rgba(255,255,255,0.58);
+      --border:rgba(61,50,40,0.08);
+      --shadow:0 20px 60px rgba(61,50,40,0.08);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html{
+      scroll-behavior:smooth;
     }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--background);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
     }
 
-    /* Background Glow */
-    .bg-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(212,165,116,0.18) 0%, rgba(212,165,116,0) 70%);
-      top: -250px;
-      right: -200px;
-      z-index: 0;
-      pointer-events: none;
-      animation: float 8s ease-in-out infinite;
+    .bg-glow{
+      position:fixed;
+      width:700px;
+      height:700px;
+      background:radial-gradient(circle, rgba(212,165,116,0.18) 0%, rgba(212,165,116,0) 70%);
+      top:-320px;
+      right:-180px;
+      z-index:-1;
+      animation:float 10s ease-in-out infinite;
     }
 
-    .bg-glow-2 {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(212,165,116,0.12) 0%, rgba(212,165,116,0) 70%);
-      bottom: -200px;
-      left: -150px;
-      z-index: 0;
-      pointer-events: none;
-      animation: float 10s ease-in-out infinite reverse;
+    .bg-glow-2{
+      position:fixed;
+      width:600px;
+      height:600px;
+      background:radial-gradient(circle, rgba(212,165,116,0.12) 0%, rgba(212,165,116,0) 70%);
+      bottom:-260px;
+      left:-140px;
+      z-index:-1;
+      animation:float 12s ease-in-out infinite reverse;
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
       }
-      50% {
-        transform: translateY(20px);
+      50%{
+        transform:translateY(30px);
       }
     }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 24px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .container{
+      width:100%;
+      max-width:1200px;
+      margin:auto;
+      padding:0 24px;
     }
 
-    header {
-      position: absolute;
-      top: 40px;
-      left: 24px;
-      right: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    nav{
+      position:fixed;
+      top:24px;
+      left:0;
+      width:100%;
+      z-index:100;
     }
 
-    .brand {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.35em;
-      color: var(--text);
+    .nav-inner{
+      max-width:1200px;
+      margin:auto;
+      padding:18px 28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      background:rgba(255,255,255,0.55);
+      backdrop-filter:blur(18px);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
     }
 
-    .hero {
-      text-align: center;
-      max-width: 780px;
-      margin: 0 auto;
-      animation: fadeUp 1s ease forwards;
+    .logo{
+      font-size:1rem;
+      font-weight:800;
+      letter-spacing:0.35em;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 18px;
-      border-radius: var(--radius-full);
-      background: rgba(255,255,255,0.6);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-      margin-bottom: 28px;
-      font-size: 0.95rem;
-      color: rgba(61,50,40,0.75);
-      box-shadow: var(--shadow);
+    section{
+      padding:140px 0;
     }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--primary);
-      animation: pulse 2s infinite;
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      position:relative;
     }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 1;
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      gap:80px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.65);
+      border:1px solid var(--border);
+      margin-bottom:30px;
+      box-shadow:var(--shadow);
+      font-size:0.95rem;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--primary);
+    }
+
+    h1{
+      font-size:clamp(4rem,8vw,7rem);
+      line-height:0.92;
+      letter-spacing:-0.06em;
+    }
+
+    .highlight{
+      color:var(--primary);
+    }
+
+    .hero p{
+      margin-top:32px;
+      font-size:1.15rem;
+      line-height:1.9;
+      color:rgba(61,50,40,0.72);
+      max-width:620px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:18px;
+      margin-top:40px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:18px 28px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.35s;
+    }
+
+    .btn-dark{
+      background:var(--text);
+      color:white;
+      box-shadow:0 10px 30px rgba(61,50,40,0.15);
+    }
+
+    .btn-dark:hover{
+      transform:translateY(-3px);
+    }
+
+    .btn-light{
+      background:rgba(255,255,255,0.65);
+      color:var(--text);
+      border:1px solid var(--border);
+      backdrop-filter:blur(10px);
+    }
+
+    .btn-light:hover{
+      transform:translateY(-3px);
+    }
+
+    .phone{
+      width:360px;
+      height:720px;
+      margin:auto;
+      border-radius:42px;
+      background:rgba(255,255,255,0.55);
+      border:1px solid rgba(255,255,255,0.4);
+      backdrop-filter:blur(20px);
+      padding:14px;
+      box-shadow:0 30px 80px rgba(61,50,40,0.12);
+      animation:phoneFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes phoneFloat{
+      0%,100%{
+        transform:translateY(0px);
       }
-      50% {
-        transform: scale(1.4);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    h1 {
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-      margin-bottom: 28px;
-      font-weight: 700;
-    }
-
-    .highlight {
-      color: var(--primary);
-    }
-
-    .tagline {
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      font-weight: 500;
-      margin-bottom: 24px;
-      color: rgba(61,50,40,0.85);
-    }
-
-    .description {
-      font-size: 1.08rem;
-      line-height: 1.8;
-      color: rgba(61,50,40,0.7);
-      max-width: 640px;
-      margin: 0 auto 42px;
-    }
-
-    .cta-group {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      text-decoration: none;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: inherit;
-    }
-
-    .btn-primary {
-      background: var(--text);
-      color: var(--white);
-      padding: 16px 28px;
-      border-radius: var(--radius-full);
-      font-weight: 600;
-      font-size: 1rem;
-      box-shadow: 0 10px 25px rgba(61,50,40,0.15);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      background: #2e241d;
-    }
-
-    .btn-secondary {
-      padding: 16px 28px;
-      border-radius: var(--radius-full);
-      background: rgba(255,255,255,0.65);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-weight: 600;
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-3px);
-      background: white;
-    }
-
-    .footer {
-      position: absolute;
-      bottom: 32px;
-      left: 24px;
-      right: 24px;
-      text-align: center;
-      font-size: 0.95rem;
-      color: rgba(61,50,40,0.55);
-    }
-
-    .footer a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-
-    .footer a:hover {
-      color: var(--primary);
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      50%{
+        transform:translateY(-16px);
       }
     }
 
-    @media (max-width: 640px) {
-      .container {
-        padding: 32px 20px;
+    .phone-screen{
+      width:100%;
+      height:100%;
+      border-radius:32px;
+      overflow:hidden;
+      background:linear-gradient(to bottom,#f6dcc0,#fff7ef);
+      position:relative;
+      padding:24px;
+    }
+
+    .feed-card{
+      margin-top:90px;
+      background:rgba(255,255,255,0.6);
+      border-radius:30px;
+      padding:18px;
+      backdrop-filter:blur(14px);
+    }
+
+    .video{
+      height:240px;
+      border-radius:22px;
+      background:linear-gradient(135deg,#eac39b,#d4a574);
+    }
+
+    .feed-text{
+      margin-top:18px;
+      font-size:1.1rem;
+      color:#fff;
+      font-weight:500;
+    }
+
+    .translation-card{
+      margin-top:18px;
+      background:white;
+      border-radius:24px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .translation-card small{
+      color:#8f7d6c;
+      font-size:0.9rem;
+    }
+
+    .translation-card h3{
+      margin-top:8px;
+      font-size:2rem;
+    }
+
+    .usage{
+      margin-top:18px;
+      color:#7b6859;
+      line-height:1.7;
+    }
+
+    .announcement{
+      padding-top:40px;
+    }
+
+    .announcement-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:40px;
+      padding:90px 60px;
+      background:rgba(255,255,255,0.55);
+      border:1px solid var(--border);
+      backdrop-filter:blur(20px);
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .coming-soon{
+      position:absolute;
+      top:30px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:clamp(4rem,10vw,9rem);
+      font-weight:800;
+      letter-spacing:-0.08em;
+      opacity:0.08;
+      white-space:nowrap;
+      pointer-events:none;
+    }
+
+    .release-update{
+      position:relative;
+      z-index:2;
+      max-width:700px;
+      margin:auto;
+    }
+
+    .update-label{
+      display:inline-flex;
+      padding:12px 18px;
+      border-radius:999px;
+      background:var(--primary);
+      color:white;
+      font-size:0.9rem;
+      font-weight:600;
+      margin-bottom:24px;
+    }
+
+    .release-update h2{
+      font-size:clamp(2.8rem,5vw,5rem);
+      line-height:0.95;
+      letter-spacing:-0.05em;
+    }
+
+    .release-update p{
+      margin-top:24px;
+      font-size:1.1rem;
+      line-height:1.9;
+      color:rgba(61,50,40,0.72);
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:clamp(2.8rem,5vw,4.5rem);
+      line-height:1;
+      letter-spacing:-0.04em;
+      margin-bottom:22px;
+    }
+
+    .section-text{
+      text-align:center;
+      max-width:760px;
+      margin:auto;
+      color:rgba(61,50,40,0.72);
+      font-size:1.1rem;
+      line-height:1.9;
+    }
+
+    .grid{
+      margin-top:70px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.55);
+      border:1px solid var(--border);
+      backdrop-filter:blur(18px);
+      border-radius:28px;
+      padding:34px;
+      box-shadow:var(--shadow);
+      transition:0.35s;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+    }
+
+    .card h3{
+      font-size:1.4rem;
+      margin-bottom:14px;
+    }
+
+    .card p{
+      color:rgba(61,50,40,0.72);
+      line-height:1.8;
+    }
+
+    .language-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      margin-top:60px;
+    }
+
+    .language{
+      padding:30px;
+      text-align:center;
+      border-radius:24px;
+      background:rgba(255,255,255,0.55);
+      border:1px solid var(--border);
+      font-size:1.3rem;
+      font-weight:600;
+      box-shadow:var(--shadow);
+      transition:0.3s;
+    }
+
+    .language:hover{
+      transform:translateY(-5px);
+    }
+
+    footer{
+      padding:60px 0;
+      text-align:center;
+      color:rgba(61,50,40,0.6);
+    }
+
+    @media(max-width:980px){
+
+      .hero-grid{
+        grid-template-columns:1fr;
       }
 
-      header {
-        top: 28px;
+      .phone{
+        width:100%;
+        max-width:360px;
       }
 
-      .description {
-        font-size: 1rem;
+      .grid,
+      .language-grid{
+        grid-template-columns:1fr;
       }
 
-      .cta-group {
-        flex-direction: column;
+      h1{
+        font-size:4.2rem;
       }
 
-      .btn {
-        width: 100%;
-        max-width: 320px;
+      .announcement-card{
+        padding:70px 30px;
       }
 
-      .footer {
-        position: relative;
-        margin-top: 80px;
-        bottom: auto;
+      .coming-soon{
+        font-size:4rem;
+        top:50px;
+      }
+
+      .buttons{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+        text-align:center;
       }
     }
+
   </style>
 </head>
+
 <body>
 
   <div class="bg-glow"></div>
   <div class="bg-glow-2"></div>
 
-  <div class="container">
+  <nav>
+    <div class="container">
 
-    <header>
-      <div class="brand">DIALEKTOS</div>
-    </header>
-
-    <main class="hero">
-
-      <div class="badge">
-        <span class="badge-dot"></span>
-        Coming Soon
+      <div class="nav-inner">
+        <div class="logo">
+          DIALEKTOS
+        </div>
       </div>
 
-      <h1>
-        Learn languages <br />
-        while <span class="highlight">scrolling.</span>
-      </h1>
+    </div>
+  </nav>
 
-      <p class="tagline">
-        Turning everyday scrolling into real-world fluency.
-      </p>
+  <section class="hero">
 
-      <p class="description">
-        DIALEKTOS transforms passive social media habits into contextual,
-        micro-learning experiences that feel natural, engaging, and effortless.
-        Learn vocabulary, expressions, and culture while enjoying the content
-        you already consume every day.
-      </p>
+    <div class="container">
 
-        <a href="mailto:contact@dialektos.one" class="btn btn-secondary">
-          contact@dialektos.one
-        </a>
+      <div class="hero-grid">
+
+        <div>
+
+          <div class="badge">
+            <span class="dot"></span>
+            Contextual language learning
+          </div>
+
+          <h1>
+            Learn languages while <span class="highlight">scrolling.</span>
+          </h1>
+
+          <p>
+            DIALEKTOS transforms doomscrolling into language acquisition.
+            Learn naturally through short-form content, contextual vocabulary,
+            instant translations, grammar assistance, and real-world exposure.
+          </p>
+
+          <div class="buttons">
+
+            <a href="mailto:contact@dialektos.one" class="btn btn-dark">
+              contact@dialektos.one
+            </a>
+
+            <a href="#announcement" class="btn btn-light">
+              Platform Updates
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="phone">
+
+          <div class="phone-screen">
+
+            <div class="feed-card">
+
+              <div class="video"></div>
+
+              <div class="feed-text">
+                Sto andando a scuola oggi.
+              </div>
+
+              <div class="translation-card">
+
+                <small>Italian Word</small>
+
+                <h3>school</h3>
+
+                <div class="usage">
+                  scuola → "school"<br>
+                  Suggested usage: LA scuola
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
-    </main>
+    </div>
 
-    <footer class="footer">
-      © 2026 DIALEKTOS — Built for modern language learners.
-    </footer>
+  </section>
 
-  </div>
+  <section class="announcement" id="announcement">
+
+    <div class="container">
+
+      <div class="announcement-card">
+
+        <div class="coming-soon">
+          COMING SOON
+        </div>
+
+        <div class="release-update">
+
+          <!-- ========================================= -->
+          <!-- EASY EDIT AREA -->
+          <!-- CHANGE THIS TEXT ANYTIME -->
+          <!-- ========================================= -->
+
+          <div class="update-label">
+            Latest Update
+          </div>
+
+          <h2>
+            Launching Summer 2026
+          </h2>
+
+          <p>
+            DIALEKTOS is currently in development.
+            We are building a modern language learning experience designed for
+            travelers, students, immigrants, casual learners, and modern internet users.
+          </p>
+
+          <!-- ========================================= -->
+          <!-- END EDIT AREA -->
+          <!-- ========================================= -->
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Scrolling becomes learning
+      </h2>
+
+      <p class="section-text">
+        Instead of overwhelming lessons and endless memorization,
+        DIALEKTOS helps users absorb languages naturally through contextual repetition,
+        real content, and effortless interaction.
+      </p>
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>Contextual Learning</h3>
+
+          <p>
+            Tap any unfamiliar word to instantly understand its meaning,
+            grammar usage, pronunciation, and contextual examples.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>ADHD-Friendly Design</h3>
+
+          <p>
+            Calm layouts, smooth motion, low cognitive overload,
+            and modern interfaces designed for focus and accessibility.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Natural Fluency</h3>
+
+          <p>
+            Learn through exposure and repetition while watching
+            authentic content from real-world social experiences.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Supported Languages
+      </h2>
+
+      <p class="section-text">
+        Learn naturally across multiple languages with contextual vocabulary,
+        real conversations, and interactive grammar assistance.
+      </p>
+
+      <div class="language-grid">
+
+        <div class="language">German</div>
+        <div class="language">Italian</div>
+        <div class="language">English</div>
+        <div class="language">Spanish</div>
+        <div class="language">French</div>
+        <div class="language">Arabic</div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 DIALEKTOS — contact@dialektos.one
+  </footer>
 
 </body>
 </html>
