@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIALEKTOS — Coming Soon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #D4A574;
+      --background: #F5EBE0;
+      --text: #3D3228;
+      --white: #FFFDFB;
+      --border: rgba(61, 50, 40, 0.08);
+
+      --radius: 12px;
+      --radius-full: 999px;
+
+      --shadow: 0 10px 40px rgba(61, 50, 40, 0.08);
+      --transition: all 0.4s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background Glow */
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212,165,116,0.18) 0%, rgba(212,165,116,0) 70%);
+      top: -250px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(212,165,116,0.12) 0%, rgba(212,165,116,0) 70%);
+      bottom: -200px;
+      left: -150px;
+      z-index: 0;
+      pointer-events: none;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(20px);
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    header {
+      position: absolute;
+      top: 40px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      color: var(--text);
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      color: rgba(61,50,40,0.75);
+      box-shadow: var(--shadow);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.4);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      margin-bottom: 28px;
+      font-weight: 700;
+    }
+
+    .highlight {
+      color: var(--primary);
+    }
+
+    .tagline {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-weight: 500;
+      margin-bottom: 24px;
+      color: rgba(61,50,40,0.85);
+    }
+
+    .description {
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: rgba(61,50,40,0.7);
+      max-width: 640px;
+      margin: 0 auto 42px;
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--white);
+      padding: 16px 28px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 10px 25px rgba(61,50,40,0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      background: #2e241d;
+    }
+
+    .btn-secondary {
+      padding: 16px 28px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.65);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      background: white;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 32px;
+      left: 24px;
+      right: 24px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: rgba(61,50,40,0.55);
+    }
+
+    .footer a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .footer a:hover {
+      color: var(--primary);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 32px 20px;
+      }
+
+      header {
+        top: 28px;
+      }
+
+      .description {
+        font-size: 1rem;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .footer {
+        position: relative;
+        margin-top: 80px;
+        bottom: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+  <div class="bg-glow-2"></div>
+
+  <div class="container">
+
+    <header>
+      <div class="brand">DIALEKTOS</div>
+    </header>
+
+    <main class="hero">
+
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Coming Soon
+      </div>
+
+      <h1>
+        Learn languages <br />
+        while <span class="highlight">scrolling.</span>
+      </h1>
+
+      <p class="tagline">
+        Turning everyday scrolling into real-world fluency.
+      </p>
+
+      <p class="description">
+        DIALEKTOS transforms passive social media habits into contextual,
+        micro-learning experiences that feel natural, engaging, and effortless.
+        Learn vocabulary, expressions, and culture while enjoying the content
+        you already consume every day.
+      </p>
+
+        <a href="mailto:contact@dialektos.one" class="btn btn-secondary">
+          contact@dialektos.one
+        </a>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      © 2026 DIALEKTOS — Built for modern language learners.
+    </footer>
+
+  </div>
+
+</body>
+</html>
